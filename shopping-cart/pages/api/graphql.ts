@@ -1,11 +1,4 @@
-import {
-  ApolloServer,
-  gql,
-  makeExecutableSchema,
-  addMocksToSchema,
-} from "apollo-server-micro";
-import { graphql } from "graphql";
-import { type } from "os";
+const { ApolloServer, gql } = require("apollo-server");
 
 const typeDefs = gql`
   type Query {
@@ -42,19 +35,8 @@ const resolvers = {
   },
 };
 
-const schema = makeExecutableSchema({
-  typeDefs,
-  resolvers,
-});
+const server = new ApolloServer({ typeDefs, resolvers });
 
-addMocksToSchema({ schema });
-
-export const config = {
-  api: {
-    bodyParser: false,
-  },
-};
-
-export default new ApolloServer({ schema, mocks: true }).createHandler({
-  path: "/api/graphql",
+server.listen().then(() => {
+  console.log(`🚀  Server ready at `);
 });
