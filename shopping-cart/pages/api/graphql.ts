@@ -1,4 +1,4 @@
-const { ApolloServer, gql } = require("apollo-server");
+import { ApolloServer, gql, makeExecutableSchema } from "apollo-server";
 
 const typeDefs = gql`
   type Query {
@@ -35,8 +35,15 @@ const resolvers = {
   },
 };
 
-const server = new ApolloServer({ typeDefs, resolvers });
+export const schema = makeExecutableSchema({
+  typeDefs,
+  resolvers,
+});
 
-server.listen().then(() => {
-  console.log(`🚀  Server ready at `);
+const server = new ApolloServer({
+  schema,
+});
+
+server.listen().then(({ url }) => {
+  console.log(`🚀 Server ready at ${url}`);
 });
