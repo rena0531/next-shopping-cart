@@ -1,4 +1,4 @@
-import { ApolloServer, gql, makeExecutableSchema } from "apollo-server";
+import { ApolloServer, gql } from "apollo-server-micro";
 
 const typeDefs = gql`
   type Query {
@@ -17,15 +17,15 @@ const items = [
     id: 1,
     name: "Breakfast",
     price: 25.0,
-    image: "../public/breakfast.jpg",
+    image: "/breakfast.jpg",
   },
-  { id: 2, name: "lion", price: 35, image: "../public/lion.jpg" },
-  { id: 3, name: "rose", price: 7.5, image: "../public/rose.jpg" },
+  { id: 2, name: "lion", price: 35, image: "/lion.jpg" },
+  { id: 3, name: "rose", price: 30, image: "/rose.jpg" },
   {
     id: 4,
     name: "strawberry",
     price: 5.0,
-    image: "../public/strawberry.jpg",
+    image: "/strawberry.jpg",
   },
 ];
 
@@ -35,15 +35,12 @@ const resolvers = {
   },
 };
 
-export const schema = makeExecutableSchema({
-  typeDefs,
-  resolvers,
-});
+const apolloServer = new ApolloServer({ typeDefs, resolvers });
 
-const server = new ApolloServer({
-  schema,
-});
+export const config = {
+  api: {
+    bodyParser: false,
+  },
+};
 
-server.listen().then(({ url }) => {
-  console.log(`🚀 Server ready at ${url}`);
-});
+export default apolloServer.createHandler({ path: "/api/graphql" });
