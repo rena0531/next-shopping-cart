@@ -5,7 +5,7 @@ const typeDefs = gql`
     items: [Item]
   }
   type Item {
-    id: Int
+    id: ID!
     name: String
     price: Int
     image: String

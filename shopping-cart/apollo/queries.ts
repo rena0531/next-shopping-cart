@@ -1,12 +1,10 @@
-import { gql } from "apollo-boost";
+import gql from "graphql-tag";
 
 export const ItemsQuery = gql`
   query items {
-    items {
-      id
-      name
-      image
-      price
-    }
+    id
+    name
+    price
+    image
   }
 `;

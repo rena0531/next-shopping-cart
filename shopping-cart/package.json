@@ -6,26 +6,27 @@
     "@apollo/react-hooks": "^3.1.5",
     "apollo": "^2.12.2",
     "apollo-boost": "^0.4.9",
-    "apollo-codegen": "^0.20.2",
-    "apollo-server": "^2.14.1",
     "apollo-server-micro": "^2.14.1",
-    "graphql": "^15.0.0",
+    "graphql-tag": "^2.9.2",
+    "graphql": "14.6.0",
     "next": "^9.4.4",
-    "react": "^16.13.1",
-    "react-apollo": "^3.1.5",
-    "react-dom": "^16.13.1",
+    "react": "^16.5.2",
+    "react-apollo": "^3.0.0",
+    "react-dom": "^16.5.2",
     "swr": "^0.2.2"
   },
   "devDependencies": {
+    "@types/graphql": "^14.0.0",
     "@types/node": "^14.0.9",
     "@types/react": "^16.9.35",
+    "apollo-codegen": "^0.20.2",
     "typescript": "^3.9.3"
   },
   "scripts": {
     "dev": "next dev",
     "build": "next build",
     "start": "next start",
-    "schema": "apollo-codegen download-schema http://localhost:4000/graphql --output ./apollo/schema.json",
-    "types": "apollo-codegen generate ./apollo/queries.ts --addTypename --schema ./apollo/schema.json --target typescript --output ./__generated__/types.ts"
+    "schema": "apollo-codegen download-schema http://localhost:3000/api/graphql --output ./apollo/schema.json",
+    "types": "apollo-codegen generate ./apollo/queries.ts --addTypename --schema ./apollo/schema.json --target typescript --output ./types.ts"
   }
 }

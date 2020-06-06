@@ -1,9 +1,9 @@
 import useSWR from "swr";
 import Head from "next/head";
-import Layout from "../component/Layout";
+import Layout from "../component/layout";
 
-const fetcher = (query: any) =>
-  fetch("/api/graphql", {
+const getItems = async (query: string) =>
+  await fetch("/api/graphql", {
     method: "POST",
     headers: {
       "Content-type": "application/json",
@@ -14,7 +14,15 @@ const fetcher = (query: any) =>
     .then((json) => json.data);
 
 export default function Index() {
-  const { data, error } = useSWR("{ items { id,name,image,price } }", fetcher);
+  const { data, error } = useSWR(
+    `{items {
+    id
+    name
+    price
+    image
+  }}`,
+    getItems
+  );
 
   if (error) return <div>Failed to load</div>;
   if (!data) return <div>Loading...</div>;
