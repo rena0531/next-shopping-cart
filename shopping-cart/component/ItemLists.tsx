@@ -10,9 +10,10 @@ const Counter = ({
   const initialPrice = Number(window.localStorage.getItem("price")) || 0;
   const [totalPrice, setTotalPrice] = useState<number>(initialPrice);
   const addCount = () => {
+    console.log("変更したい");
+    onTotalPriceUpdate(itemPrice + totalPrice);
     setTotalPrice(itemPrice + totalPrice);
   };
-  const onChange = () => onTotalPriceUpdate(itemPrice + totalPrice);
 
   useEffect(() => {
     window.localStorage.setItem("price", String(totalPrice));
@@ -20,9 +21,7 @@ const Counter = ({
 
   return (
     <>
-      <button onClick={() => addCount()} onChange={() => onChange()}>
-        Add Cart
-      </button>
+      <button onClick={() => addCount()}>Add Cart</button>
     </>
   );
 };
