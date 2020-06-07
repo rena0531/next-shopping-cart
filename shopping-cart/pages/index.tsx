@@ -1,6 +1,7 @@
 import useSWR from "swr";
 import Head from "next/head";
 import Layout from "../component/layout";
+import { useState } from "react";
 
 const getItems = async (query: string) =>
   await fetch("/api/graphql", {
@@ -24,6 +25,8 @@ export default function Index() {
     getItems
   );
 
+  const [totalPrice, setTotalPrice] = useState<number>(0);
+
   if (error) return <div>Failed to load</div>;
   if (!data) return <div>Loading...</div>;
 
@@ -32,11 +35,17 @@ export default function Index() {
       <Head>
         <title>shopping cart</title>
       </Head>
+      <h2>
+        Total ￥<a>{totalPrice}</a>
+      </h2>
       {data?.items.map((item: any) => (
         <div key={item.id}>
           <strong>{item.name}</strong>
           <span> ￥</span>
-          <small>{item.price}</small>
+          <small>{item.price} </small>
+          <button onClick={() => setTotalPrice(item.price + totalPrice)}>
+            Add Cart
+          </button>
           <br />
           <img src={item.image} width="300" height="200" />
         </div>
