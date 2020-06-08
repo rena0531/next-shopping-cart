@@ -1,8 +1,8 @@
-import useSWR from "swr";
 import Head from "next/head";
 import Layout from "../component/layout";
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { ItemLists } from "../component/ItemLists";
+import axios from "axios";
 
 const TotalCount = ({ price }: { price: number }) => {
   return (
@@ -12,29 +12,44 @@ const TotalCount = ({ price }: { price: number }) => {
   );
 };
 
-const getItems = async (query: string) =>
-  await fetch("/api/graphql", {
-    method: "POST",
-    headers: {
-      "Content-type": "application/json",
-    },
-    body: JSON.stringify({ query }),
-  })
-    .then((res) => res.json())
-    .then((json) => json.data);
+const requestData = `
+  items {
+    id
+    name
+    price
+    image
+  }
+`;
 
 export const Index: React.FC = () => {
   const [price, setPrice] = useState<number>(0);
-  const { data, error } = useSWR(
-    `{items { id, name, price, image }}`,
-    getItems
-  );
+  const [data, setData] = useState<any>([]);
 
-  if (error) return <div>Failed to load</div>;
   if (!data) return <div>Loading...</div>;
 
-  const updateTotalPrice = () =>
-    setPrice(Number(window.localStorage.getItem("price")));
+  useEffect(() => {
+    const fetchData = async () => {
+      const result = await axios({
+        method: "post",
+        url: "/api/graphql",
+        data: {
+          query: `query {
+          items {
+            id,
+            name,
+            price,
+            image,
+          }
+        }`,
+        },
+      });
+      setData(result.data.data);
+    };
+    fetchData();
+  }, []);
+
+  //const updateTotalPrice = () =>
+  //  setPrice(Number(window.localStorage.getItem("price")));
 
   return (
     <Layout>
@@ -42,7 +57,8 @@ export const Index: React.FC = () => {
         <title>shopping cart</title>
       </Head>
       <TotalCount price={price} />
-      <ItemLists data={data} updateTotalPrice={updateTotalPrice} />
+      <ItemLists data={data} />
+      {/*updateTotalPrice={updateTotalPrice}*/}
     </Layout>
   );
 };
