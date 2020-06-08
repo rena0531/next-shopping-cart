@@ -1,6 +1,6 @@
 import Head from "next/head";
 import Layout from "../component/layout";
-import { useState, useEffect } from "react";
+import { useState, useEffect, Dispatch, SetStateAction } from "react";
 import { ItemLists } from "../component/ItemLists";
 import axios from "axios";
 
@@ -11,12 +11,20 @@ const TotalCount = ({ price }: { price: number }) => {
     </h2>
   );
 };
-
+global.window = window;
+function usePriceState(defaultValue: number, key: string) {
+  const [value, setValue] = useState<any>(() => {
+    const stickyValue = window.localStorage.getItem(key);
+    return stickyValue !== null ? Number(stickyValue) : defaultValue;
+  });
+  useEffect(() => {
+    Number(window.localStorage.setItem(key, JSON.stringify(value)));
+  }, [key, value]);
+  return [value, setValue];
+}
 
 export const Index: React.FC = () => {
-  const initialPrice = Number(window.localStorage.getItem("price")) || 0;
-
-  const [price, setPrice] = useState<number>(initialPrice);
+  const [price, setPrice] = usePriceState(0, "price");
   const [data, setData] = useState<any>([]);
 
   if (!data) return <div>Loading...</div>;
