@@ -2,15 +2,15 @@ import { SetStateAction, useState, useEffect } from "react";
 
 const Counter = ({
   itemPrice,
-}: //onTotalPriceUpdate,
-{
+  onTotalPriceUpdate,
+}: {
   itemPrice: number;
-  //onTotalPriceUpdate: (value: SetStateAction<number>) => void;
+  onTotalPriceUpdate: (value: SetStateAction<number>) => void;
 }) => {
   const initialPrice = Number(window.localStorage.getItem("price")) || 0;
   const [totalPrice, setTotalPrice] = useState<number>(initialPrice);
   const addCount = () => {
-    //onTotalPriceUpdate(itemPrice + totalPrice);
+    onTotalPriceUpdate(itemPrice + totalPrice);
     setTotalPrice(itemPrice + totalPrice);
   };
 
@@ -27,10 +27,10 @@ const Counter = ({
 
 export const ItemLists = ({
   data,
-  //updateTotalPrice,
+  updateTotalPrice,
 }: {
   data: any;
-  //updateTotalPrice: () => void;
+  updateTotalPrice: () => void;
 }) => {
   return (
     <>
@@ -41,7 +41,7 @@ export const ItemLists = ({
           <small>{item.price} </small>
           <Counter
             itemPrice={item.price}
-            //onTotalPriceUpdate={updateTotalPrice}
+            onTotalPriceUpdate={updateTotalPrice}
           />
           <br />
           <img src={item.image} width="300" height="200" />

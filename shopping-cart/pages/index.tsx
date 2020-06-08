@@ -12,17 +12,11 @@ const TotalCount = ({ price }: { price: number }) => {
   );
 };
 
-const requestData = `
-  items {
-    id
-    name
-    price
-    image
-  }
-`;
 
 export const Index: React.FC = () => {
-  const [price, setPrice] = useState<number>(0);
+  const initialPrice = Number(window.localStorage.getItem("price")) || 0;
+
+  const [price, setPrice] = useState<number>(initialPrice);
   const [data, setData] = useState<any>([]);
 
   if (!data) return <div>Loading...</div>;
@@ -48,8 +42,10 @@ export const Index: React.FC = () => {
     fetchData();
   }, []);
 
-  //const updateTotalPrice = () =>
-  //  setPrice(Number(window.localStorage.getItem("price")));
+  const updateTotalPrice = () => {
+    console.log("add");
+    setPrice(Number(window.localStorage.getItem("price")));
+  };
 
   return (
     <Layout>
@@ -57,8 +53,7 @@ export const Index: React.FC = () => {
         <title>shopping cart</title>
       </Head>
       <TotalCount price={price} />
-      <ItemLists data={data} />
-      {/*updateTotalPrice={updateTotalPrice}*/}
+      <ItemLists data={data} updateTotalPrice={updateTotalPrice} />
     </Layout>
   );
 };
