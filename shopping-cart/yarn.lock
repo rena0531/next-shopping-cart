@@ -4442,14 +4442,7 @@ graphql-upload@^8.0.2:
     http-errors "^1.7.3"
     object-path "^0.11.4"
 
-graphql@*, graphql@^0.13.1:
-  version "0.13.2"
-  resolved "https://registry.yarnpkg.com/graphql/-/graphql-0.13.2.tgz#4c740ae3c222823e7004096f832e7b93b2108270"
-  integrity sha512-QZ5BL8ZO/B20VA8APauGBg3GyEgZ19eduvpLWoq5x7gMmWnHoy8rlQWPLmWgFvo1yNgjSEFMesmS4R6pPr7xog==
-  dependencies:
-    iterall "^1.2.1"
-
-"graphql@14.0.2 - 14.2.0 || ^14.3.1", graphql@14.6.0, graphql@^14.5.3:
+graphql@*, "graphql@14.0.2 - 14.2.0 || ^14.3.1", graphql@14.6.0, graphql@^0.13.1, graphql@^14.0.2, graphql@^14.5.3:
   version "14.6.0"
   resolved "https://registry.yarnpkg.com/graphql/-/graphql-14.6.0.tgz#57822297111e874ea12f5cd4419616930cd83e49"
   integrity sha512-VKzfvHEKybTKjQVpTFrA5yUq2S9ihcZvfJAtsDBBCuV6wauPu1xl/f9ehgVf0FcEJJs4vz6ysb/ZMkGigQZseg==
@@ -7878,10 +7871,10 @@ typedarray@^0.0.6:
   resolved "https://registry.yarnpkg.com/typedarray/-/typedarray-0.0.6.tgz#867ac74e3864187b1d3d47d996a78ec5c8830777"
   integrity sha1-hnrHTjhkGHsdPUfZlqeOxciDB3c=
 
-typescript@^3.9.3:
-  version "3.9.5"
-  resolved "https://registry.yarnpkg.com/typescript/-/typescript-3.9.5.tgz#586f0dba300cde8be52dd1ac4f7e1009c1b13f36"
-  integrity sha512-hSAifV3k+i6lEoCJ2k6R2Z/rp/H3+8sdmcn5NrS3/3kE7+RyZXm9aqvxWqjEXHAd8b0pShatpcdMTvEdvAJltQ==
+typescript@^4.0.0-dev.20200609:
+  version "4.0.0-dev.20200609"
+  resolved "https://registry.yarnpkg.com/typescript/-/typescript-4.0.0-dev.20200609.tgz#c35a84902eb522dc858fe61c018003928051a465"
+  integrity sha512-+FFUGuOqBW5+eZf7IboN14yKVtciZ5NHQApru8/e+Leka0953ixdaU3euouPnJ/S7i/e5MtNWgxLG5TNBOuN/Q==
 
 unicode-canonical-property-names-ecmascript@^1.0.4:
   version "1.0.4"

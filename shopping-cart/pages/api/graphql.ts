@@ -2,13 +2,13 @@ import { ApolloServer, gql } from "apollo-server-micro";
 
 const typeDefs = gql`
   type Query {
-    items: [Item]
+    items: [Item!]!
   }
   type Item {
     id: ID!
-    name: String
-    price: Int
-    image: String
+    name: String!
+    price: Int!
+    image: String!
   }
 `;
 
