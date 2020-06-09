@@ -1,20 +1,11 @@
 import Head from "next/head";
 import Layout from "../component/layout";
 import { useState, useEffect } from "react";
-import { ItemLists } from "../component/ItemLists";
 import axios from "axios";
-
-const TotalCount = ({ price }: { price: number }) => {
-  return (
-    <h2>
-      Total ￥<a>{price}</a>
-    </h2>
-  );
-};
 
 function usePriceState(defaultValue: number, key: string) {
   const [value, setValue] = useState<any>(() => {
-    const stickyValue = 0; //window.localStorage.getItem(key);
+    const stickyValue = 0;
     return stickyValue !== null ? Number(stickyValue) : defaultValue;
   });
   useEffect(() => {
@@ -50,9 +41,8 @@ export const Index: React.FC = () => {
     fetchData();
   }, []);
 
-  const updateTotalPrice = () => {
-    const countPrice = Number(window.localStorage.getItem("price"));
-    setPrice(countPrice);
+  const addCount = (itemPrice: number) => {
+    setPrice(itemPrice + Number(window.localStorage.getItem("price")));
   };
 
   return (
@@ -60,8 +50,19 @@ export const Index: React.FC = () => {
       <Head>
         <title>shopping cart</title>
       </Head>
-      <TotalCount price={price} />
-      <ItemLists data={data} updateTotalPrice={updateTotalPrice} />
+      <h2>
+        Total ￥<a>{price}</a>
+      </h2>
+      {data.items?.map((item: any) => (
+        <div key={item.id}>
+          <strong>{item.name}</strong>
+          <span> ￥</span>
+          <small>{item.price} </small>
+          <button onClick={() => addCount(item.price)}>Add Cart</button>
+          <br />
+          <img src={item.image} width="300" height="200" />
+        </div>
+      ))}
     </Layout>
   );
 };
