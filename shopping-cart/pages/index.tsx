@@ -2,6 +2,7 @@ import Head from "next/head";
 import Layout from "../component/layout";
 import { useState, useEffect } from "react";
 import axios from "axios";
+import { items, items_items } from "../apollo/types";
 
 function usePriceState(defaultValue: number, key: string) {
   const [value, setValue] = useState<any>(() => {
@@ -16,7 +17,7 @@ function usePriceState(defaultValue: number, key: string) {
 
 export const Index: React.FC = () => {
   const [price, setPrice] = usePriceState(0, "price");
-  const [data, setData] = useState<any>([]);
+  const [data, setData] = useState<items>([]);
 
   if (!data) return <div>Loading...</div>;
 
@@ -53,7 +54,7 @@ export const Index: React.FC = () => {
       <h2>
         Total ￥<a>{price}</a>
       </h2>
-      {data.items?.map((item: any) => (
+      {data.items?.map((item: items_items) => (
         <div key={item.id}>
           <strong>{item.name}</strong>
           <span> ￥</span>
