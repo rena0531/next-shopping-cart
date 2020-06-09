@@ -7,11 +7,14 @@ const Counter = ({
   itemPrice: number;
   onTotalPriceUpdate: (value: SetStateAction<number>) => void;
 }) => {
-  const initialPrice = Number(window.localStorage.getItem("price")) || 0;
+  const initialPrice = Number(window.localStorage.getItem("price"));
   const [totalPrice, setTotalPrice] = useState<number>(initialPrice);
   const addCount = () => {
-    onTotalPriceUpdate(itemPrice + totalPrice);
-    setTotalPrice(itemPrice + totalPrice);
+    setTotalPrice((prevPrice) => {
+      const newPrice = prevPrice + itemPrice;
+      onTotalPriceUpdate(newPrice);
+      return newPrice;
+    });
   };
 
   useEffect(() => {
